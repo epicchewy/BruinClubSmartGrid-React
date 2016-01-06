@@ -1,0 +1,21 @@
+{
+	"dependencies": {
+		"async": "latest",
+		"reactify": "latest",
+		"watchify": "latest",
+		"browserify": "latest",
+		"gulp": "latest",
+        "gulp-watch": "latest",
+		"gulp-shell": "latest",
+		"react": "latest",
+		"gulp-nodemon": "latest",
+		"browser-sync": "latest",
+		"ejs" : "latest",
+		"express" : "latest",
+		"path" : "latest",
+		"multer" : "latest",
+		"react-dom" : "latest",
+		"react-search-bar" : "latest",
+		"body-parser" : "latest"
+	}
+}
