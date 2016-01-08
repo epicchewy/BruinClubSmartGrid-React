@@ -1,33 +1,26 @@
 var React = require('react');
 var Panel = require('./Panel.react');
 var TestData = require('../action/TestData');
+var CompanyStore = require('../store/CompanyStore');
+
 var PanelList = React.createClass({
 	getInitialState: function(){
 		return {
-			data : TestData
+			data : this.props.information
 		}; 
-	},
-	componentWillMount: function(){
-		
-	},
-	componentDidMount: function(){
-		//store call
 	},
 	componentWillUnmount: function(){
 		//another store call <LoginView></LoginView>
 	},
 	render: function(){
 		var panels = [];
-		var data = this.state.data;
-		console.log("data : " + JSON.stringify(data.one));
-
-		for(var information in data){
-			panels.push(<Panel name={data[information].name} value={data[information].value} description={data[information].description}></Panel>);
+		var companies = JSON.parse(this.state.data).companies;
+		for(var i = 0; i < 2; i++){
+			var name = companies[i].company[0].name;
+			var website = companies[i].company[0].website;
+			var category = companies[i].company[0].category;
+			panels.push(<Panel name={name} category={category} website={website}></Panel>);
 		}
-		// for(var i = 0; i < 9; i++){
-		// 	var props = this.state.data[i];
-		// 	panels.push(<Panel name={props.name} value={props.value} description={props.description}></Panel>);
-		// }
 		return (
 			<div className = "panel-list">
 				{panels}

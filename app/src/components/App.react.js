@@ -3,34 +3,58 @@ var SearchBar = require('./SearchBar.react');
 var Panel = require('./Panel.react');
 var FilterSideBar = require('./FilterSideBar.react');
 var PanelList = require('./PanelList.react');
+var APIAction = require('../action/APIAction');
+var CompanyStore = require('../store/CompanyStore');
+var request = require('request');
 
 var App = React.createClass({
 	getInitialState: function(){
-		return this.getStateFromStores();
+		return {
+			data: {},
+			logged: false
+		}
 	},
-	componentDidMount: function(){
-		//store call
-	},
-	componentWillUnmount: function(){
-		//another store call <LoginView></LoginView>
+	componentWillMount: function(){
+		var url = "http://bruinclub.herokuapp.com/api/companies";
+		request(url, function(err, response, body){
+			if(this.isMounted()){
+				this.setState({
+		        	data : body,
+		        	logged: true
+		     	});
+			}
+		}.bind(this));	
 	},
 	render: function(){
-		console.log("bruin club intialized");
-		return (
-			<div className = "root">
-				<h1>Smart Grid</h1>
-				<SearchBar></SearchBar>
-				<FilterSideBar></FilterSideBar>
-				<div className = "panels">
-					<PanelList></PanelList>
+		var companies = this.state.data;
+		if(!this.state.logged){
+			return(
+				<div className = "root">
+					<h1>Smart Grid</h1>
+					<SearchBar></SearchBar>
+					<div className = "loading-bar">Loading...</div>
 				</div>
-			</div>
-		);
-			//make header chatroomarea and chatroom list <GroupChatList></GroupChatList>
+			);
+		}else{
+			return(
+				<div className = "root">
+					<h1>Smart Grid</h1>
+					<SearchBar></SearchBar>
+					<FilterSideBar></FilterSideBar>
+					<div className = "panels">
+						<div className = "panels">
+							<PanelList information = {companies}></PanelList>
+						</div>
+					</div>
+				</div>
+			);
+		}
+		//make header chatroomarea and chatroom list <GroupChatList></GroupChatList>company_array = {companies}
 	},
 	getStateFromStores: function(){
 		return {
-			login: true
+			login: true,
+			data: {}
 		}
 	}
 });

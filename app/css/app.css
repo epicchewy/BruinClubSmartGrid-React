@@ -42,6 +42,10 @@ table {
   font-size: 75px;
 }
 
+.loading-bar{
+  margin-top: 4em;
+}
+
 .panel-list{
   margin-top: 20px;
 }
@@ -54,6 +58,7 @@ table {
   background-color: #000;
   font-size: 24px;
   text-align: center;
+  margin:5px 5px 5px 5px;
   padding: 10px 10px 10px 10px;
 }
 
@@ -67,8 +72,10 @@ table {
 }
 
 .panel-body{
-  font-size: 11px;
+  width:7em;
+  font-size: 14px;
   color:#fff;
 }
+
 
 

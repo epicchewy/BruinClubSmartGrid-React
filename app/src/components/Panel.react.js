@@ -12,14 +12,14 @@ var Panel = React.createClass({
 		
 	},
 	render: function(){
-		console.log("state" + JSON.stringify(this.state));
 		return (
 			<div className = "panel-wrapper">
 				<div className = "panel-header">
 					<h1>{this.state.name}</h1>
 				</div>
 				<div className = "panel-body">
-					<p>{this.state.description}</p>
+					<p className = "panel-cateogry">{this.state.category}</p>
+					<a className = "panel-website">{this.state.website}</a>
 				</div>
 			</div>
 			
@@ -28,8 +28,8 @@ var Panel = React.createClass({
 	getStateFromStores: function(){
 		return{
 			name: this.props.name,
-			value: this.props.value,
-			description: this.props.description
+			category: this.props.category,
+			website: this.props.website
 		}
 	}
 });
