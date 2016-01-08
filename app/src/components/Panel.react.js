@@ -12,6 +12,7 @@ var Panel = React.createClass({
 		
 	},
 	render: function(){
+		var url = "http://" + this.state.website;
 		return (
 			<div className = "panel-wrapper">
 				<div className = "panel-header">
@@ -19,7 +20,7 @@ var Panel = React.createClass({
 				</div>
 				<div className = "panel-body">
 					<p className = "panel-cateogry">{this.state.category}</p>
-					<a className = "panel-website">{this.state.website}</a>
+					<a className = "panel-website" href = {url} target = "_blank">{this.state.website}</a>
 				</div>
 			</div>
 			
