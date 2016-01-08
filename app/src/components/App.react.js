@@ -30,7 +30,7 @@ var App = React.createClass({
 		if(!this.state.logged){
 			return(
 				<div className = "root">
-					<h1>Smart Grid</h1>
+					<h1 className = "root-header">Welcome to the Bruin Club</h1>
 					<SearchBar></SearchBar>
 					<div className = "loading-bar">Loading...</div>
 				</div>
@@ -38,13 +38,11 @@ var App = React.createClass({
 		}else{
 			return(
 				<div className = "root">
-					<h1>Smart Grid</h1>
+					<h1>Welcome to the Bruin Club</h1>
 					<SearchBar></SearchBar>
 					<FilterSideBar></FilterSideBar>
 					<div className = "panels">
-						<div className = "panels">
-							<PanelList information = {companies}></PanelList>
-						</div>
+						<PanelList information = {companies}></PanelList>
 					</div>
 				</div>
 			);
