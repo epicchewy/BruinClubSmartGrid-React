@@ -16,6 +16,7 @@
 		"multer" : "latest",
 		"react-dom" : "latest",
 		"react-search-bar" : "latest",
-		"body-parser" : "latest"
+		"body-parser" : "latest",
+		"request" : "latest"
 	}
 }
