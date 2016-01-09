@@ -17,6 +17,7 @@
 		"react-dom" : "latest",
 		"react-search-bar" : "latest",
 		"body-parser" : "latest",
-		"request" : "latest"
+		"request" : "latest",
+		"vinyl-source-stream" : "latest"
 	}
 }
