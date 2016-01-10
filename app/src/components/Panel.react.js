@@ -28,9 +28,9 @@ var Panel = React.createClass({
 	},
 	getStateFromStores: function(){
 		return{
-			name: this.props.name,
-			category: this.props.category,
-			website: this.props.website
+			name: this.props.company.company[0].name,
+			category: this.props.company.company[0].category,
+			website: this.props.company.company[0].website
 		}
 	}
 });

@@ -10,17 +10,22 @@ var PanelList = React.createClass({
 		}; 
 	},
 	componentWillUnmount: function(){
-		//another store call <LoginView></LoginView>
+		
 	},
 	render: function(){
 		var panels = [];
 		var companies = JSON.parse(this.state.data).companies;
-		for(var i = 0; i < 2; i++){
-			var name = companies[i].company[0].name;
-			var website = companies[i].company[0].website;
-			var category = companies[i].company[0].category;
-			panels.push(<Panel name={name} category={category} website={website}></Panel>);
-		}
+
+		companies.forEach(function(company) {
+      		if (company.company[0].name.indexOf(this.props.filterText) === -1) {
+        		return;
+      		}
+      		
+
+      		panels.push(<Panel company = {company} key = {company.company[0].name}></Panel>);
+      		console.log("panels " + name);
+    	}.bind(this));
+
 		return (
 			<div className = "panel-list">
 				{panels}
@@ -30,3 +35,7 @@ var PanelList = React.createClass({
 });
 
 module.exports = PanelList;
+
+// var name = company.company[0].name;
+//       		var category = company.company[0].category;
+//       		var website = company.company[0].website;

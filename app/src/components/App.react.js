@@ -11,7 +11,8 @@ var App = React.createClass({
 	getInitialState: function(){
 		return {
 			data: {},
-			logged: false
+			logged: false,
+			filterText: ''
 		}
 	},
 	componentWillMount: function(){
@@ -24,33 +25,31 @@ var App = React.createClass({
 		     	});
 			}
 		}.bind(this));	
-	},
+	}, 
+	handleUserInput: function(filterText) {
+		console.log("data : " + JSON.stringify(this.state.data));
+    	this.setState({
+      		filterText: filterText
+    	});
+  	},
 	render: function(){
 		var companies = this.state.data;
 		if(!this.state.logged){
 			return(
 				<div className = "root">
-					<SearchBar></SearchBar>
 					<div className = "loading-bar">Loading...</div>
 				</div>
 			);
 		}else{
 			return(
 				<div className = "root">
-					<SearchBar></SearchBar>
+					<SearchBar filterText={this.state.filterText} onUserInput={this.handleUserInput}></SearchBar>
 					<FilterSideBar></FilterSideBar>
 					<div className = "panels">
-						<PanelList information = {companies}></PanelList>
+						<PanelList information = {companies} filterText={this.state.filterText}></PanelList>
 					</div>
 				</div>
 			);
-		}
-		//make header chatroomarea and chatroom list <GroupChatList></GroupChatList>company_array = {companies}
-	},
-	getStateFromStores: function(){
-		return {
-			login: true,
-			data: {}
 		}
 	}
 });
