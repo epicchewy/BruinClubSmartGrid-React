@@ -6,24 +6,19 @@ var FilterSideBar = require('./FilterSideBar.react');
 var PanelList = require('./PanelList.react');
 var request = require('request');
 
-function getStateFromStores() {
-	console.log("getting state");
-	return {
-		displayed: CompanyStore.displayCompanies,
-		logged: false,
-		filterText: '',
-		loaded: 9,
-		companies: CompanyStore.companies
-	};
-}
-
 var App = React.createClass({
 	getInitialState: function(){
-		return getStateFromStores();	
+		return this._getStateFromStores();	
 	},
-
-	componentDidMount: function() {		
+	componentWillMount: function(){
+		CompanyStore.addChangeListener(this._onChange);
+	},
+	componentDidMount: function() {	
+		CompanyStore.addChangeListener(this._onChange);
 		this._setScroll();
+	},
+	componentWillUnmount: function(){
+		CompanyStore.removeChangeListener(this_onChange);
 	},
 	componentWillUpdate: function() {
 		this._checkScroll();
@@ -49,6 +44,16 @@ var App = React.createClass({
 			</div>
 		);
 	},
+	_getStateFromStores: function(){
+		console.log("getting state");
+		return {
+			displayed: CompanyStore.displayCompanies,
+			logged: false,
+			filterText: '',
+			loaded: 9,
+			companies: CompanyStore.companies
+		};
+	},
 	_setScroll: function(){
 		console.log("updated");
 	},
@@ -66,6 +71,9 @@ var App = React.createClass({
 			displayed: CompanyStore.getDisplayedCompanies
 		});
 
+	},
+	_onChange: function(){
+		this.setState(this._getStateFromStores());
 	}
 });
 

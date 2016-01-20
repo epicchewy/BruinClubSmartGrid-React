@@ -8,6 +8,8 @@ var EventEmitter = require('events').EventEmitter;
 var CHANGE_EVENT = 'change';
 var OTHER_EVENT = '';
 
+util.inherits(CompanyStore, EventEmitter);
+
 function CompanyStore(){
 	EventEmitter.call(this);
 	this.dispatchToken = AppDispatcher.register(this._onDispatch.bind(this));
@@ -17,37 +19,22 @@ function CompanyStore(){
 	this.setMaxListeners(0);
 }
 
-util.inherits(CompanyStore, EventEmitter);
-
-// CompanyStore.prototype.dispatchToken = AppDispatcher.register(function (action){
-// 	console.log("received dispatch");
-// 	switch(action.type){
-// 		case ActionType.COMPANIES:
-// 			debugger
-// 			loadCompanies(action.url);
-// 			break;
-// 		default:
-// 			// dispatch not set up
-// 	};
-// });
-
 CompanyStore.prototype.emitChange = function emitChange() {
-	var delay = 300;
-	var i;
-	this.lastEmit = new Date().getTime();
-	setTimeout(function() {
-		if (new Date().getTime() - this.lastEmit >= delay) {
-			this.emit(CHANGE_EVENT);
-		} else {
-			this.emit(OTHER_EVENT);
-		}
-	}.bind(this), delay);
+	this.emit(CHANGE_EVENT);
+};
+
+CompanyStore.prototype.addChangeListener = function addChangeListener(callback){
+	this.on(CHANGE_EVENT, callback);
+};
+
+CompanyStore.prototype.removeChangeListener = function removeChangeListener(callback){
+	this.removeListener(CHANGE_EVENT, callback);
 };
 
 CompanyStore.prototype.loadCompanies = function loadCompanies(url){
-	console.log("initializing companies");
 	request(url, function(err, response, body){
-		this.companies = JSON.parse(body).companies;	
+		this.companies = JSON.parse(body).companies;
+		console.log("here we go : " + JSON.stringify(this.companies[0]));	
 		for(var i = 0; i < 9; i++){//initial load
 			if(this.displayCompanies.length < this.companies.length){
 				this.displayCompanies.push(this.companies[i]);
@@ -58,7 +45,6 @@ CompanyStore.prototype.loadCompanies = function loadCompanies(url){
 };
 
 CompanyStore.prototype._loadMoreCompanies = function _loadMoreCompanies(){
-	console.log("updating display companies")
 	var numLoaded = 0;
 	for(var i = 0; i < 9; i++){ //load more upon scroll
 		if(this.displayCompanies.length < this.companies.length){
@@ -78,7 +64,6 @@ CompanyStore.prototype.getDisplayedCompanies = function getDisplayedCompanies(){
 };
 
 CompanyStore.prototype._onDispatch = function _onDispatch(action) {
-	console.log("received dispatch");
 	switch (action.type) {
 		case ActionType.COMPANIES:
 			this.loadCompanies(action.url);

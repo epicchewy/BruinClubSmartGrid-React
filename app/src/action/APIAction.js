@@ -7,7 +7,6 @@ function APIAction(){
 }
 
 APIAction.prototype.init = function init(){
-	console.log("dispatched init");
 	AppDispatcher.dispatch({
 		type: ActionType.COMPANIES,
 		url: "http://bruinclub.herokuapp.com/api/companies/"
