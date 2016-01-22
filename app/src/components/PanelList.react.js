@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDOM = require('react-dom');
 var Panel = require('./Panel.react');
 var TestData = require('../action/TestData');
 var CompanyStore = require('../store/CompanyStore');
@@ -6,36 +7,53 @@ var CompanyStore = require('../store/CompanyStore');
 var PanelList = React.createClass({
 	getInitialState: function(){
 		return {
-			data : this.props.companies
+			data : this.props.companies,
+			shouldScrollTop: true,
+			loaded: 9
 		}; 
 	},
-	componentWillMount: function(){
-		console.log("panel list loading");
+	componentDidMount: function(){
+		CompanyStore.addChangeListener(this._onChange);
+		window.addEventListener('scroll', this._onScroll);
+	},
+	compnentWillUnmount: function(){
+		CompanyStore.removeChangeListener(this._onChange);
 	},
 	render: function(){
 		var panels = [];
-
 		var companies = this.state.data;
-		console.log("companies : " + companies);
-
 		companies.forEach(function(company) {
       		if (company.company[0].name.indexOf(this.props.filterText) === -1) {
         		return;
       		}
-      		panels.push(<Panel company = {company} key = {company.company[0].name}></Panel>);
-      		console.log("panels " + name);
+      		panels.push(<Panel company = {company} key = {company.company[0].name} ></Panel>);
     	}.bind(this));
 
 		return (
-			<div className = "panel-list">
+			<div ref = "content" className = "panel-list" onScroll = {this._onScroll}>
 				{panels}
 			</div>
 		);
-	}
+	},
+	_onChange: function(){
+		console.log("panel-list changed");
+	},
+	_onScroll: function(){
+		var height = ReactDOM.findDOMNode(this).offsetHeight;
+		if($(window).scrollTop() >= height -650){
+			setTimeout(function(){
+			  this._loadMoreCompanies();
+			}.bind(this), 500); 
+		}
+	},
+	_loadMoreCompanies: function(){
+		var currentLoaded = this.state.loaded;
+		var numLoaded = CompanyStore._loadMoreCompanies(currentLoaded);
+		this.setState({
+			loaded: currentLoaded + numLoaded,
+			displayed: CompanyStore.getDisplayedCompanies
+		});
+	},
 });
 
 module.exports = PanelList;
-
-// var name = company.company[0].name;
-//       		var category = company.company[0].category;
-//       		var website = company.company[0].website;

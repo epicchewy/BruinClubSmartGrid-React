@@ -17,6 +17,7 @@ function CompanyStore(){
 	this.companies = [];
 	this.displayCompanies = [];
 	this.setMaxListeners(0);
+	this.leftOver = true;
 }
 
 CompanyStore.prototype.emitChange = function emitChange() {
@@ -34,24 +35,27 @@ CompanyStore.prototype.removeChangeListener = function removeChangeListener(call
 CompanyStore.prototype.loadCompanies = function loadCompanies(url){
 	request(url, function(err, response, body){
 		this.companies = JSON.parse(body).companies;
-		console.log("here we go : " + JSON.stringify(this.companies[0]));	
 		for(var i = 0; i < 9; i++){//initial load
 			if(this.displayCompanies.length < this.companies.length){
 				this.displayCompanies.push(this.companies[i]);
+			}else{
+				this.leftOver = false;
+				break;
 			}
 		}
 		this.emitChange();
 	}.bind(this));
 };
 
-CompanyStore.prototype._loadMoreCompanies = function _loadMoreCompanies(){
+CompanyStore.prototype._loadMoreCompanies = function _loadMoreCompanies(loaded){
 	var numLoaded = 0;
 	for(var i = 0; i < 9; i++){ //load more upon scroll
 		if(this.displayCompanies.length < this.companies.length){
 			numLoaded++;
-			this.displayCompanies.push(this.companies[i]);
+			this.displayCompanies.push(this.companies[i + loaded]);
 		}
 	}
+	this.emitChange();
 	return numLoaded;
 };
 

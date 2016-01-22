@@ -15,6 +15,7 @@ var SearchBar = React.createClass({
 	render: function(){
 		return (
 			<input
+				className = "search-bar"
           		type="text"
           		placeholder={this.state.placeHolder}
           		value={this.props.filterText}
