@@ -26,7 +26,6 @@ var App = React.createClass({
   	},
 	render: function(){
 		var companies = this.state.companies;
-		console.log("companies : " + JSON.stringify(this.state.displayed));
 		return(
 			<div>
 				<SearchBar filterText={this.state.filterText} onUserInput={this.handleUserInput}></SearchBar>
@@ -37,7 +36,6 @@ var App = React.createClass({
 		);
 	},
 	_getStateFromStores: function(){
-		console.log("getting state");
 		return {
 			displayed: CompanyStore.displayCompanies,
 			logged: false,
