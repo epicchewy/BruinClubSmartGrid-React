@@ -30,7 +30,7 @@ var PanelList = React.createClass({
     	}.bind(this));
 
 		return (
-			<div ref = "content" className = "panel-list" onScroll = {this._onScroll}>
+			<div ref = "content" className = "panel-list">
 				{panels}
 			</div>
 		);
@@ -40,7 +40,7 @@ var PanelList = React.createClass({
 	},
 	_onScroll: function(){
 		var height = ReactDOM.findDOMNode(this).offsetHeight;
-		if($(window).scrollTop() >= height -650){
+		if($(window).scrollTop() >= height - 650){
 			setTimeout(function(){
 			  this._loadMoreCompanies();
 			}.bind(this), 500); 
