@@ -9,7 +9,9 @@ var PanelList = React.createClass({
 		return {
 			data : this.props.companies,
 			shouldScrollTop: true,
-			loaded: 9
+			loaded: 9,
+			logos : CompanyStore.getLogos,
+			logoCount: 9
 		}; 
 	},
 	componentDidMount: function(){
@@ -22,21 +24,45 @@ var PanelList = React.createClass({
 	render: function(){
 		var panels = [];
 		var companies = this.state.data;
-		companies.forEach(function(company) {
-      		if (company.company[0].name.indexOf(this.props.filterText) === -1) {
-        		return;
-      		}
-      		panels.push(<Panel company = {company} key = {company.company[0].name} ></Panel>);
-    	}.bind(this));
-
+		var logos = this.state.logos;
+		var logoCount = this.state.logoCount;
+		var loaded = this.state.loaded;
+		if(logos !== undefined){
+			companies.forEach(function(company) {
+				var logo = "";
+	      		if (company.company[0].name.indexOf(this.props.filterText) === -1) {
+	        		return;
+	      		}
+      			for(var i = 0; i < logos.length; i++){
+					if(logos[i].substring(20) == company.company[0].website){
+						logo = logos[i];
+					}
+				}
+				if(logo === ""){
+					logo = "//logo.clearbit.com/ucla.edu";
+				}
+	      		panels.push(<Panel company = {company} key = {company.company[0].name} logo = {logo}></Panel>);
+	    	}.bind(this));
+		}
+		
 		return (
-			<div ref = "content" className = "panel-list">
+			<div ref = "content" className = "panel-list" >
 				{panels}
 			</div>
 		);
 	},
+	updateCount: function(num){
+		this.setState({logoCount: this.state.logoCount + num})
+	},
 	_onChange: function(){
-		console.log("panel-list changed");
+		this.setState(this.getStateFromStores());
+	},
+	getStateFromStores: function(){
+		var currentLogos = this.state.logoCount;
+		return {
+			logos : CompanyStore.logos,
+			logoCount : CompanyStore.one
+		};
 	},
 	_onScroll: function(){
 		var height = ReactDOM.findDOMNode(this).offsetHeight;
@@ -51,7 +77,8 @@ var PanelList = React.createClass({
 		var numLoaded = CompanyStore._loadMoreCompanies(currentLoaded);
 		this.setState({
 			loaded: currentLoaded + numLoaded,
-			displayed: CompanyStore.getDisplayedCompanies
+			displayed: CompanyStore.getDisplayedCompanies,
+			logos : CompanyStore.logos
 		});
 	},
 });

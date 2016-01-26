@@ -16,6 +16,7 @@ function CompanyStore(){
 	APIAction.init();
 	this.companies = [];
 	this.displayCompanies = [];
+	this.logos = [];
 	this.setMaxListeners(0);
 	this.leftOver = true;
 }
@@ -38,6 +39,8 @@ CompanyStore.prototype.loadCompanies = function loadCompanies(url){
 		for(var i = 0; i < 9; i++){//initial load
 			if(this.displayCompanies.length < this.companies.length){
 				this.displayCompanies.push(this.companies[i]);
+				var logo_url = this.displayCompanies[i].company[0].website;
+				this.loadLogo(logo_url);
 			}else{
 				this.leftOver = false;
 				break;
@@ -47,12 +50,31 @@ CompanyStore.prototype.loadCompanies = function loadCompanies(url){
 	}.bind(this));
 };
 
+CompanyStore.prototype.loadLogo = function loadLogo(url){
+	var pass = "http://logo.clearbit.com/" + url;
+
+	$.ajax(pass, {
+		type :'GET',
+        crossDomain: true
+    }).done(function () {
+    	this.logos.push("//logo.clearbit.com/"+url);
+    }.bind(this)).fail(function () {
+    }).always(function () {
+        this.emitChange();
+    }.bind(this));
+}
+
+CompanyStore.prototype.one = function one(){
+	return 1;
+}
+
 CompanyStore.prototype._loadMoreCompanies = function _loadMoreCompanies(loaded){
 	var numLoaded = 0;
 	for(var i = 0; i < 9; i++){ //load more upon scroll
 		if(this.displayCompanies.length < this.companies.length){
 			numLoaded++;
 			this.displayCompanies.push(this.companies[i + loaded]);
+			this.loadLogo(this.companies[i + loaded].company[0].website);
 		}
 	}
 	this.emitChange();
@@ -67,10 +89,17 @@ CompanyStore.prototype.getDisplayedCompanies = function getDisplayedCompanies(){
 	return this.displayCompanies;
 };
 
+CompanyStore.prototype.getLogos = function getLogos(){
+	return this.logos;
+};
+
 CompanyStore.prototype._onDispatch = function _onDispatch(action) {
 	switch (action.type) {
 		case ActionType.COMPANIES:
 			this.loadCompanies(action.url);
+			break;
+		case ActionType.LOGO:
+			this.loadLogos(action.url);
 			break;
 		default:
 			//dispatch not set up

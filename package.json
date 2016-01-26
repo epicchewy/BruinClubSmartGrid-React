@@ -1,4 +1,11 @@
 {
+  "name": "BruinClub",
+  "version": "0.1.5",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
 	"dependencies": {
 		"async": "latest",
 		"reactify": "latest",
@@ -19,5 +26,19 @@
 		"body-parser" : "latest",
 		"request" : "latest",
 		"vinyl-source-stream" : "latest"
-	}
+	},
+  "engines": {
+    "node": "4.2.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git.heroku.com/afternoon-tor-20220.git"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ],
+  "license": "MIT",
+  "author": "Luke Chui"
 }

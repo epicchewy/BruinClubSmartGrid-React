@@ -15,10 +15,18 @@ APIAction.prototype.init = function init(){
 }
 
 APIAction.prototype.login = function login(){
-
+	
 }
 
 APIAction.prototype.logout = function logout(){
+	
+}
+
+APIAction.prototype.getLogo = function getLogo(url){
+	AppDispatcher.dispatch({
+		type: ActionType.LOGO,
+		url: "//logo.clearbit/"+url
+	});
 	
 }
 

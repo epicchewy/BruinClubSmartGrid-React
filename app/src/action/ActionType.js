@@ -1,4 +1,5 @@
 module.exports = {
 	COMPANIES: 'COMPANIES',
-	LOGIN: 'LOGIN'
+	LOGIN: 'LOGIN',
+	LOGO: 'LOGO'
 };

@@ -30,7 +30,7 @@ var App = React.createClass({
 			<div>
 				<SearchBar filterText={this.state.filterText} onUserInput={this.handleUserInput}></SearchBar>
 				<div className = "panels">
-					<PanelList companies = {this.state.displayed} filterText={this.state.filterText} />
+					<PanelList companies = {this.state.displayed} filterText={this.state.filterText} logos = {this.state.logos}/>
 				</div>
 			</div>
 		);
@@ -40,7 +40,8 @@ var App = React.createClass({
 			displayed: CompanyStore.displayCompanies,
 			logged: false,
 			filterText: '',
-			companies: CompanyStore.companies
+			companies: CompanyStore.companies,
+			logos: CompanyStore.logos
 		};
 	},
 	_onChange: function(){
