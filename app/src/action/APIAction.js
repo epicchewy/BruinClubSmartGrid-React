@@ -7,6 +7,9 @@ function APIAction(){
 }
 
 APIAction.prototype.init = function init(){
+
+
+
 	AppDispatcher.dispatch({
 		type: ActionType.COMPANIES,
 		url: "http://bruinclub.herokuapp.com/api/companies"
@@ -23,6 +26,9 @@ APIAction.prototype.logout = function logout(){
 }
 
 APIAction.prototype.getLogo = function getLogo(url){
+
+	
+
 	AppDispatcher.dispatch({
 		type: ActionType.LOGO,
 		url: "//logo.clearbit/"+url

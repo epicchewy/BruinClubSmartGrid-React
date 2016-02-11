@@ -70,13 +70,14 @@ CompanyStore.prototype.one = function one(){
 
 CompanyStore.prototype._loadMoreCompanies = function _loadMoreCompanies(loaded){
 	var numLoaded = 0;
-	for(var i = 0; i < 9; i++){ //load more upon scroll
+	for(var i = 0; i < 6; i++){ //load more upon scroll
 		if(this.displayCompanies.length < this.companies.length){
 			numLoaded++;
 			this.displayCompanies.push(this.companies[i + loaded]);
 			this.loadLogo(this.companies[i + loaded].company[0].website);
 		}
 	}
+
 	this.emitChange();
 	return numLoaded;
 };

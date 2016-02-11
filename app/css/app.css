@@ -8,6 +8,10 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   overflow-y:scroll;
   font-family: 'Open Sans', sans-serif;
   vertical-align: baseline;
+  transition: all .3s ease;
+
+ /* F7CA18
+  4183D7*/
 }
 /* HTML5 display-role reset for older browsers */
 
@@ -37,18 +41,23 @@ table {
   border-spacing: 0;
 }
 
+a:hover{
+  color:black;
+  text-decoration: none;
+}
+
 .content{
-  margin-left: 180px;
+  margin-left: 260px;
   overflow-x: hidden; 
+  overflow-y: hidden; 
+  background-color: #fff;
 }
 
 .container{
   max-width: 1280px;
-  padding:0px 100px;
 }
 
 .root{
-  vertical-align: middle;
   text-align: center;
 }
 
@@ -62,27 +71,35 @@ table {
   margin-top: 4em;
 }
 
+.hide {
+  display:none!important;
+}
+
 .panels{
+  vertical-align: center;
   top:3em;
   overflow: hidden;
-  padding:1em 1em 1em 1em;
+  padding:2em 2em 2em 2em;
   position:relative;
 }
 
 .panel-list{
   margin-top: 20px;
+  overflow-y:hidden;
 }
 
 .panel-wrapper{
+  vertical-align: center;
   position: relative;
   display: inline-block;
-  width: 10em;
-  height:10em;
-  background-color: #f6f6f6;
+  width: 12em;
+  height:12em;
+  /*background-color: #fff;*/
+  background-color: #f7f7f7;
   font-size: 24px;
   text-align: center;
   margin:5px 5px 5px 5px;
-  padding: 10px 10px 10px 10px;
+  padding: 15px 15px 15px 15px;
 }
 
 .panel-header{
@@ -100,19 +117,38 @@ table {
   color:#000;
 }
 
+.panel-website{
+  padding:1em 1em 0 0;
+}
+
 .search-bar{
-  width: 90%;
-  height:3em;
+  height:3.5em;
   min-width: 280px;
   position:fixed;
   z-index: 10;
   margin-bottom: 3em;
+  max-width: 900px;
+  margin-left:1.5em;
+  margin-right: 1.5em;
+  padding-left: .5em;
+  padding-right: .5em;
+  background-color: #3284BF;
+  opacity: .4;
+  color:#000;
+  -webkit-background-clip: padding-box; /* for Safari */
+    background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
 }
 
-
 input {
-  font-size: 110%;
+  font-size: 125%;
   outline: 0;
+  border: none;
+  border-bottom: solid 2px #000;
+  transition: border 0.3s;
+}
+
+.search-bar:focus{
+   border-bottom:3px solid rgba(50,132,191);
 }
 
 .icon {
