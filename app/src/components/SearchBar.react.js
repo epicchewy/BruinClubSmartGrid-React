@@ -12,9 +12,6 @@ var SearchBar = React.createClass({
 	componentDidMount: function(){
 		window.addEventListener('resize', this.handleResize);
 	},
-	componentDidUnmount: function(){
-		//window.removeEventListener('resize', this.handleResize);
-	},
 	handleResize: function(){
 		this.setState({
 			windowWidth: window.innerWidth - 260
@@ -36,7 +33,6 @@ var SearchBar = React.createClass({
 				className = "search-bar"
           		type="text"
           		placeholder={this.state.placeHolder}
-          		placeholderTextColor = '#000'
           		value={this.props.filterText}
           		ref="filterTextInput"
           		onChange={this.handleChange}

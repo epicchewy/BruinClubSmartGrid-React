@@ -6,9 +6,9 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   font: inherit;
   overflow-x:hidden;
   overflow-y:scroll;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Avenir';
   vertical-align: baseline;
-  transition: all .3s ease;
+  transition: all .5s;
 
  /* F7CA18
   4183D7*/
@@ -132,23 +132,17 @@ a:hover{
   margin-right: 1.5em;
   padding-left: .5em;
   padding-right: .5em;
-  background-color: #3284BF;
-  opacity: .4;
   color:#000;
-  -webkit-background-clip: padding-box; /* for Safari */
-    background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
-}
-
-input {
+  border: solid 2px #dcdcdc;
   font-size: 125%;
   outline: 0;
-  border: none;
-  border-bottom: solid 2px #000;
-  transition: border 0.3s;
+  -webkit-background-clip: padding-box; /* for Safari */
+  background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
+  transition: box-shadow 0.3s, border 0.3s;
 }
-
 .search-bar:focus{
-   border-bottom:3px solid rgba(50,132,191);
+   border: solid 2px #3498DB;
+  box-shadow: 0 0 1px 1px #4183D7;
 }
 
 .icon {
@@ -170,11 +164,12 @@ input {
 .sidebar{
   float: left;
   position: fixed; 
-  background-color: #3284BF; 
+  background-color: #4183D7; 
   height: 100%; 
   width: 260px; 
-  border: 2px solid #3284BF;
+  border: 2px solid #4183D7;
 }
+/*#3284BF*/
 
 .sidebar-title{
   color: white; 

@@ -62,7 +62,6 @@ var Panel = React.createClass({
 		}
 	},
 	getStateFromStores: function(){
-		//this.getLogo(this.props.company.company[0].website);
 		return{
 			name: this.props.company.company[0].name,
 			category: this.props.company.company[0].category,
@@ -78,26 +77,6 @@ var Panel = React.createClass({
 		this.setState({
 			logo : "//logo.clearbit.com/ucla.edu"
 		});
-	},
-	getLogo: function(url){
-	  	var pass = "http://logo.clearbit.com/" + url;
-		var logo_blob;
-		$.ajax(pass, {
-			type :'GET',
-	        crossDomain: true
-	    }).done(function (res) {
-	    	var base64logo;
-	    	 var reader = new window.FileReader();
-			 reader.readAsArrayBufferFile(res); 
- 			reader.onloadend = function() {
-                base64logo = reader.result;                
-  			}
-	    	this.setState({
-	    		logoCheck : base64logo
-	    	});
-	    }.bind(this)).fail(function () {
-	    }).always(function () {
-	    }.bind(this));
 	},
 	setDefault: function(){
 		this.setState({

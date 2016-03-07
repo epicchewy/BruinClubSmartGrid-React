@@ -19,18 +19,19 @@ var App = React.createClass({
 	componentWillUnmount: function(){
 		CompanyStore.removeChangeListener(this_onChange);
 	},
-	handleUserInput: function(filterText) {
-    	this.setState({
-      		filterText: filterText
-    	});
-  	},
 	render: function(){
-		var companies = this.state.companies;
+		var companies;
+		if(this.state.searched.length > 0){
+			companies = this.state.searched;
+		}else{
+			companies = this.state.displayed;
+		}
+
 		return(
 			<div>
-				<SearchBar filterText={this.state.filterText} onUserInput={this.handleUserInput}></SearchBar>
+				<SearchBar filterText={this.state.filterText} onUserInput={this._filterText}></SearchBar>
 				<div className = "panels">
-					<PanelList companies = {this.state.displayed} filterText={this.state.filterText} logos = {this.state.logos}/>
+					<PanelList companies = {companies} logos = {this.state.logos}/>
 				</div>
 			</div>
 		);
@@ -39,10 +40,17 @@ var App = React.createClass({
 		return {
 			displayed: CompanyStore.displayCompanies,
 			logged: false,
-			filterText: '',
 			companies: CompanyStore.companies,
-			logos: CompanyStore.logos
+			logos: CompanyStore.logos,
+			searched : []
 		};
+	},
+	_filterText: function(text){
+		var updatedList = this.state.companies;
+	    updatedList = updatedList.filter(function(item){
+	      	return item.company[0].name.toLowerCase().search(text.toLowerCase()) !== -1;
+	    });
+	    this.setState({searched: updatedList});
 	},
 	_onChange: function(){
 		this.setState(this._getStateFromStores());

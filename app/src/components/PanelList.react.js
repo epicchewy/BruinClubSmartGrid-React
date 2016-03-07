@@ -52,25 +52,16 @@ var PanelList = React.createClass({
 		var logos = this.state.logos;
 		var logoCount = this.state.logoCount;
 		var loaded = this.state.loaded;
-
 		var widthList = this.state.widthList;
 		var panelPerRow;
 
 		var displayCompanies = [];
 		var displayPanels = [];
 		if(companies.length !== 0){
-			var loadingStyle = {
-				backgroundImage :'url(' + this.state.loadingGifUrl + ')',
-				height : 200,
-				width : 200
-			};
 			if(logos !== undefined){
 				companies.forEach(function(company) {
 					var logo = "";
-
-		      		if (company.company[0].name.indexOf(this.props.filterText) === -1 ) {
-		        		return;
-		      		}
+	
 	      			for(var i = 0; i < logos.length; i++){
 						if(logos[i].substring(20) == company.company[0].website){
 							logo = logos[i];
@@ -79,7 +70,6 @@ var PanelList = React.createClass({
 					if(logo === ""){
 						logo = "//logo.clearbit.com/ucla.edu";
 					}
-					// console.log(company.company[0].website);
 		      		displayPanels.push(<Panel company = {company} key = {company.company[0].name} logo = {logo} website = {company.company[0].website} loading = {this.state.loading}></Panel>);
 		    	}.bind(this));
 			}
@@ -128,3 +118,6 @@ var PanelList = React.createClass({
 });
 
 module.exports = PanelList;
+	      		// if (company.company[0].name.indexOf(this.props.filterText) === -1 ) {
+		        // 		return;
+		      		// }
