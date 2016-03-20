@@ -5,7 +5,6 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   font-size: 100%;
   font: inherit;
   overflow-x:hidden;
-  overflow-y:scroll;
   font-family: 'Avenir';
   vertical-align: baseline;
   transition: all .5s;
@@ -49,7 +48,7 @@ a:hover{
 .content{
   margin-left: 260px;
   overflow-x: hidden; 
-  overflow-y: hidden; 
+/*  overflow-y: hidden; */
   background-color: #fff;
 }
 
@@ -78,14 +77,13 @@ a:hover{
 .panels{
   vertical-align: center;
   top:3em;
-  overflow: hidden;
+  /*overflow: hidden;*/
   padding:2em 2em 2em 2em;
   position:relative;
 }
 
 .panel-list{
   margin-top: 20px;
-  overflow-y:hidden;
 }
 
 .panel-wrapper{
@@ -109,6 +107,7 @@ a:hover{
 }
 .panel-header h1{
   font-size:14px;
+  overflow-y:hidden;
 }
 
 .panel-body{

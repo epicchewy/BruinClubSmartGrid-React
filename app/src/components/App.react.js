@@ -27,8 +27,12 @@ var App = React.createClass({
 			companies = this.state.displayed;
 		}
 
+		var root_style = {
+			overflowY : "hidden"
+		};
+
 		return(
-			<div>
+			<div style ={root_style}>
 				<SearchBar filterText={this.state.filterText} onUserInput={this._filterText}></SearchBar>
 				<div className = "panels">
 					<PanelList companies = {companies} logos = {this.state.logos}/>

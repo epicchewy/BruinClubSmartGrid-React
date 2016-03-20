@@ -1,5 +1,6 @@
 var AppDispatcher = require('../core/AppDispatcher');
 var ActionType = require('./ActionType');
+var config = require('../../../config');
 
 function APIAction(){
 	this.session = true;
@@ -9,7 +10,7 @@ function APIAction(){
 APIAction.prototype.init = function init(){
 	AppDispatcher.dispatch({
 		type: ActionType.COMPANIES,
-		url: "http://bruinclub.herokuapp.com/api/companies"
+		url: 'http://bruinclub.herokuapp.com/api/companies'
 	});
 	this.initialized = true;
 }
